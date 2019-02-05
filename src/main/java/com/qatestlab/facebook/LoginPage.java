@@ -6,7 +6,7 @@ public class LoginPage {
 
     WebDriver driver;
     LoginPageMap Map;
-    private final String LoginEmail = "mail4test@list.ru";
+    private final String LoginEmail = "mail4test5@list.ru";
     private final String LoginPass = "10stepsinua";
 
     public LoginPage(WebDriver driver){

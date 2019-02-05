@@ -32,6 +32,14 @@ public class LoginTest {
         Assert.assertTrue(mainPage.validateUserName("Nyornuwofia Agorsor"));
     }
 
+    @Test
+    public void mSendMessageTest(){
+        loginPage.Navigate("https://facebook.com");
+        mainPage = loginPage.Login();
+        mainPage.WriteMessage("Test message");
+        Assert.assertTrue(mainPage.lastMessage(), true);
+    }
+
     @After
     public void Clean(){
         driver.quit();
