@@ -10,6 +10,7 @@ public class MainPageMap {
 
     private WebDriver driver;
 
+
     public MainPageMap(WebDriver driver){
         this.driver = driver;
     }
@@ -20,12 +21,13 @@ public class MainPageMap {
     }
 
     public WebElement MsgBtn(){
-        return this.driver.findElement(By.name("mercurymessages"));
+        return new WebDriverWait(driver, 15)
+                .until(ExpectedConditions.elementToBeClickable(By.name("mercurymessages")));
     }
 
     public WebElement FirstDialogue(){
-        WebDriverWait wait = new WebDriverWait(this.driver, 10);
-        return wait.until(ExpectedConditions.elementToBeClickable(By.className("jewelItemNew")));
+        return new WebDriverWait(driver, 15)
+                .until(ExpectedConditions.elementToBeClickable(By.className("messagesContent")));
     }
 
     public WebElement MsgField(){
