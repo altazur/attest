@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class MainPageMap {
 
     private WebDriver driver;
+    //Magic Number
+    int MessageNumber = 10;
 
 
     public MainPageMap(WebDriver driver){
@@ -37,14 +39,12 @@ public class MainPageMap {
     }
 
     public String LastMessage(){
-        return this.driver.findElement(By.xpath("/html/body/div[1]/div[5]/div[1]/div/div/div" +
-                "[4]/div/div[1]/div/div/div/div/div/div[1]/div/div[2]" +
-                "/div[1]/div/div/div[2]/div/div[1]/div/div[2]/div/div/" +
-                "div/div[1]/div/div/div/div[2]/div/div/span/span")).getText();
+        return this.driver.findElement(By.xpath("/html/body/div[1]/div[5]/div[1]/div/div/div[4]/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div["+MessageNumber+"]/div/div/div/div[1]/div/div/div/div[2]/div/div/span/span")).getText();
     }
 
     public WebElement SendMessageButton(){
-        return this.driver.findElement(By.id("js_6d"));
+        return new WebDriverWait(driver, 15).until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[1]/div[5]/div[1]/div/div/div[4]/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div[4]/div/ul/li[8]")));
+        //return this.driver.findElement(By.xpath("/html/body/div[1]/div[5]/div[1]/div/div/div[4]/div/div[1]/div/div/div/div/div/div[1]/div/div[2]/div[4]/div/ul/li[8]"));
     }
 
 }

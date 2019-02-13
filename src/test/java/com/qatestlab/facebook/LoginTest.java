@@ -5,11 +5,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.ProfilesIni;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginTest {
@@ -19,18 +19,12 @@ public class LoginTest {
 
     @Before
     public void setup(){
-        System.setProperty("webdriver.gecko.driver", "./src/main/resources/geckodriver");
-        // Setting new profile from folder (actual profile)
-        //.ini for whatever reason here
-        ProfilesIni profile = new ProfilesIni();
-        //make profile with ini builder
-        FirefoxProfile ffProfile = profile.getProfile("default");
-        FirefoxOptions opt = new FirefoxOptions();
-        //setting our created profile to FireFoxOptions object
-        opt.setCapability("firefox_profile", ffProfile);
-        opt.setProfile(ffProfile);
-        //create Firefox gecko driver with profile
-        driver = new FirefoxDriver(opt);
+        ChromeOptions opt = new ChromeOptions();
+        Map<String, Object> prefs = new HashMap<String, Object>();
+        prefs.put("profile.default_content_setting_values.notifications", 2);
+        opt.setExperimentalOption("prefs", prefs);
+        System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver");
+        driver = new ChromeDriver(opt);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         loginPage = new LoginPage(driver);
@@ -47,10 +41,13 @@ public class LoginTest {
 
     @Test
     public void mSendMessageTest(){
+        String text = "Test message";
         loginPage.Navigate("https://facebook.com");
         mainPage = loginPage.Login();
-        mainPage.WriteMessage("Test message");
-        Assert.assertTrue(mainPage.lastMessage(), true);
+        mainPage.WriteMessage(text);
+        System.out.println("Asserting last message");
+        System.out.println(mainPage.lastMessage());
+        Assert.assertTrue(mainPage.lastMessage().contains(text));
     }
 
     @After
