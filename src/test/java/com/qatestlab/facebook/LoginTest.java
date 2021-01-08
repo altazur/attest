@@ -41,7 +41,7 @@ public class LoginTest {
 
     @Test
     public void mSendMessageTest(){
-        String text = "Test message";
+        String text = "Hello world";
         loginPage.Navigate("https://facebook.com");
         mainPage = loginPage.Login();
         mainPage.WriteMessage(text);
